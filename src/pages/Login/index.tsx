@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
 
-type Props = {}
+import { Card } from "antd";
+
+
+import './index.css'
+
+type Props = {};
 
 export default function Login({}: Props) {
   return (
-    <div>Login</div>
-  )
+    <div className="login">
+      <Card className="login-container">
+        <div className="login-logo">登录</div>
+      </Card>
+    </div>
+  );
 }
