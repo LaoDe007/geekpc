@@ -1,0 +1,40 @@
+.layout {
+  //layout的样式
+  height: 100vh;
+  :global {
+    // 子元素样式
+    .ant-layout-header {
+      padding: 0;
+    }
+    .ant-layout {
+      height: 100%;
+    }
+    .logo {
+      float: left;
+      width: 200px;
+      height: 60px;
+      background: url("../../assets/logo.png");
+      background-size: cover;
+      background-position: 0px -30px;
+    }
+    .profile {
+      color: #fff;
+      font-weight: 700;
+      position: absolute;
+      right: 20px;
+      span + span {
+        margin-left: 20px;
+        cursor: pointer;
+      }
+    }
+
+    .ant-row-rtl .logo {
+      float: right;
+      margin: 16px 0 16px 24px;
+    }
+
+    .site-layout-background {
+      background: #fff;
+    }
+  }
+}

@@ -8,7 +8,7 @@ import request from "utils/request";
  */
 export const login = (mobile: number, code: number) => {
   return request({
-    method: "POST",
+    method: "GET",
     url: "/posts",
     data: { mobile, code},
   });

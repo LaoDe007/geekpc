@@ -3,18 +3,17 @@ import { useNavigate } from "react-router-dom";
 
 import { Card, Button, Checkbox, Form, Input, message } from "antd";
 
-import "pages/Login/index.scss";
+import styles from "./index.module.scss";
+
 import { login } from "../../api/user";
 
 type Props = {};
 
-export default function Login({ }: Props) {
-  
+export default function Login({}: Props) {
   const [loadings, setLoadings] = useState<boolean>(false);
   const navigate = useNavigate();
   async function onFinish(values: { mobile: number; code: number }) {
-
-    setLoadings(true)
+    setLoadings(true);
     try {
       const { mobile, code } = values;
       const res = await login(mobile, code);
@@ -33,9 +32,10 @@ export default function Login({ }: Props) {
     console.log("Failed:", errorInfo);
   };
   return (
-    <div className="login">
-      <Card className="login-container">
-        <div className="login-logo">登录</div>
+    <div className={styles.login}>
+      <Card className={styles['login-container']}>
+        <div className={styles['login-logo']}>
+        </div>
         <Form
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 19 }}
