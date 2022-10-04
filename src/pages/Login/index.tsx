@@ -1,15 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Card, Button, Checkbox, Form, Input } from "antd";
+import { Card, Button, Checkbox, Form, Input, message } from "antd";
 
 import "pages/Login/index.scss";
+import { login } from "../../api/user";
 
 type Props = {};
 
-export default function Login({}: Props) {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
+export default function Login({ }: Props) {
+  
+  const [loadings, setLoadings] = useState<boolean>(false);
+  const navigate = useNavigate();
+  async function onFinish(values: { mobile: number; code: number }) {
+
+    setLoadings(true)
+    try {
+      const { mobile, code } = values;
+      const res = await login(mobile, code);
+      console.log(res);
+      // 1.登录成功,保存token
+      message.success("登录成功", 0.5, () => {
+        navigate("/home");
+      });
+      // 2.跳转到首页
+    } catch (error) {
+      console.log("@error:", error);
+    }
+  }
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -81,7 +99,7 @@ export default function Login({}: Props) {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 5, span: 19 }}>
-            <Button type="primary" htmlType="submit" block>
+            <Button type="primary" htmlType="submit" block loading={loadings}>
               登录
             </Button>
           </Form.Item>
