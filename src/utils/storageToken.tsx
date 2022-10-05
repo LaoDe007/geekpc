@@ -1,5 +1,5 @@
 // 用于封装所有的localStorage的操作
-const TOKEN_KRY: string = "geek-pc-ts";
+const TOKEN_KRY: string = "token-key-geek-pc";
 
 /**
  * 保存token

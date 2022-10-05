@@ -6,10 +6,9 @@ import { Card, Button, Checkbox, Form, Input, message } from "antd";
 import styles from "./index.module.scss";
 
 import { login } from "../../api/user";
+import { setToken } from '../../utils/storageToken';
 
-type Props = {};
-
-export default function Login({}: Props) {
+export default function Login() {
   const [loadings, setLoadings] = useState<boolean>(false);
   const navigate = useNavigate();
   async function onFinish(values: { mobile: number; code: number }) {
@@ -17,7 +16,9 @@ export default function Login({}: Props) {
     try {
       const { mobile, code } = values;
       const res = await login(mobile, code);
-      console.log(res);
+      // console.log(res);
+      const { token} = res.data
+      setToken(token)
       // 1.登录成功,保存token
       message.success("登录成功", 0.5, () => {
         navigate("/home");

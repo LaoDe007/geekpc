@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, Link, Navigate, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 // css modules会自动对样式文件中的所有选择器重命名
 import styles from "./index.module.scss";
 
@@ -9,7 +9,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Menu, Layout, Popconfirm, Button, message } from "antd";
+import { Menu, Layout, Popconfirm, message } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 
 const { Header, Content, Sider } = Layout;
