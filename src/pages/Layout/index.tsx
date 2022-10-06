@@ -11,7 +11,7 @@ import {
 import type { MenuProps } from "antd";
 import { Menu, Layout, Popconfirm, message } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
-import { getUserProfile, getStatusError } from "../../api/user";
+import { getUserProfile } from "../../api/user";
 
 const { Header, Content, Sider } = Layout;
 
@@ -40,7 +40,7 @@ const itemsSiderNav: MenuProps["items"] = [
 export default function LayoutComponent() {
   const initValueProfile: { name: string; age: number } = {
     name: "用户名",
-    age: 1,
+    age: 3,
   };
   const [profile, setProfile] = useState(initValueProfile);
   const {pathname} = useLocation()
@@ -58,9 +58,6 @@ export default function LayoutComponent() {
     })();
   }, []);
 
-  async function errorLogin() {
-    await getStatusError();
-  }
   return (
     <div className={styles.layout}>
       <Layout>
@@ -93,9 +90,8 @@ export default function LayoutComponent() {
               items={itemsSiderNav}
             />
           </Sider>
-          <Layout style={{ padding: "24px" }}>
+          <Layout style={{ padding: "24px",overflow:'auto' }}>
             <Content className="site-layout-background">
-              <button onClick={errorLogin}>111</button>
               <Outlet />
             </Content>
           </Layout>
