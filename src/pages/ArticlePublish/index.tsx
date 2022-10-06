@@ -1,8 +1,6 @@
 import React from 'react'
 
-type Props = {}
-
-export default function ArticlePublish({}: Props) {
+export default function ArticlePublish() {
   return (
     <div>ArticlePublish</div>
   )

@@ -1,5 +1,6 @@
 // 用于封装所有的localStorage的操作
 const TOKEN_KRY: string = "token-key-geek-pc";
+const TOKEN_RIGHT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDMyODQzNjYsInVzZXJfaWQiOjF9.mLYitrKsn4E4KdQd0CNPugKrH8uQmXEQTlG_JutC8jU"
 
 /**
  * 保存token
@@ -25,5 +26,6 @@ export const removeToken = () => localStorage.removeItem(TOKEN_KRY);
  * 判断是否有token
  * @returns Boolean
  */
-export const hasToken = ()=> !!getToken()
+export const hasToken = () => !!getToken()
 
+export const rightToken = ()=> getToken() === TOKEN_RIGHT

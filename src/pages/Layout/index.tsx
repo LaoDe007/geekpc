@@ -1,5 +1,5 @@
-import React from "react";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 // css modules会自动对样式文件中的所有选择器重命名
 import styles from "./index.module.scss";
 
@@ -11,6 +11,7 @@ import {
 import type { MenuProps } from "antd";
 import { Menu, Layout, Popconfirm, message } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
+import { getUserProfile, getStatusError } from "../../api/user";
 
 const { Header, Content, Sider } = Layout;
 
@@ -25,10 +26,10 @@ const itemsSiderNav: MenuProps["items"] = [
   LaptopOutlined,
   NotificationOutlined,
 ].map((icon, index) => {
-  const key = String(index + 1);
+  const key = ["/home","/home/list","/home/publish"];
 
   return {
-    key: `nav${key}`,
+    key: `${key[index]}`,
     icon: React.createElement(icon),
     label: (
       <Link to={siderNavRoutes[index].link}>{siderNavRoutes[index].label}</Link>
@@ -36,22 +37,37 @@ const itemsSiderNav: MenuProps["items"] = [
   };
 });
 
-type Props = {};
+export default function LayoutComponent() {
+  const initValueProfile: { name: string; age: number } = {
+    name: "用户名",
+    age: 1,
+  };
+  const [profile, setProfile] = useState(initValueProfile);
+  const {pathname} = useLocation()
 
-export default function LayoutComponent({}: Props) {
   const navigate = useNavigate();
   const confirm = () => {
     navigate("/login");
     message.success("退出成功");
   };
 
+  useEffect(() => {
+    (async function getUserInfo() {
+      const userInfo = await getUserProfile();
+      setProfile(userInfo.data);
+    })();
+  }, []);
+
+  async function errorLogin() {
+    await getStatusError();
+  }
   return (
     <div className={styles.layout}>
       <Layout>
         <Header className="header">
           <div className="logo" />
           <div className="profile">
-            <span>用户名</span>
+            <span>{profile.name}</span>
             <span>
               <Popconfirm
                 placement="bottomRight"
@@ -72,13 +88,14 @@ export default function LayoutComponent({}: Props) {
               theme="dark"
               mode="inline"
               style={{ height: "100%", borderRight: 0 }}
-              // defaultSelectedKeys={["nav1"]}
+              defaultSelectedKeys={[pathname]}
 
               items={itemsSiderNav}
             />
           </Sider>
           <Layout style={{ padding: "24px" }}>
             <Content className="site-layout-background">
+              <button onClick={errorLogin}>111</button>
               <Outlet />
             </Content>
           </Layout>

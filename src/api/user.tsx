@@ -13,3 +13,22 @@ export const login = (mobile: number, code: number) => {
     data: { mobile, code},
   });
 };
+
+/**
+ * 
+ * @returns 获取用户信息
+ */
+
+export const getUserProfile = () => {
+  return request({
+    method: "GET",
+    url: "/user/1"
+  });
+};
+
+export const getStatusError = () => {
+  return request({
+    method: "GET",
+    url: "/user/12"
+  });
+};
